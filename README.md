@@ -95,3 +95,197 @@ Relationships:
 7. Assumptions and Risks
    - Users manually log time for sessions; auto-tracking integrations are out of scope for MVP.
    - Future scalability will require optimization in session logging and dashboard analytics.
+
+---
+
+TODO: separate out to proper directories:
+
+Database Schema for 10K Hours
+SQL Definitions
+
+```sql
+-- Users Table
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+email VARCHAR(255) UNIQUE NOT NULL,
+password VARCHAR(255),
+Nullable for OAuth users
+oauth_provider VARCHAR(50), e.g., 'Google', 'Facebook', or NULL
+role VARCHAR(10) NOT NULL CHECK (role IN ('admin', 'regular')),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+```
+
+```sql
+-- Skills Table
+CREATE TABLE skills (
+skill_id SERIAL PRIMARY KEY,
+user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
+name VARCHAR(255) NOT NULL,
+description TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+```
+
+```sql
+-- Sessions Table
+CREATE TABLE sessions (
+session_id SERIAL PRIMARY KEY,
+skill_id INT REFERENCES skills(skill_id) ON DELETE CASCADE,
+user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
+start_time TIMESTAMP NOT NULL,
+end_time TIMESTAMP,
+duration INT GENERATED ALWAYS AS (EXTRACT(EPOCH FROM (end_time - start_time))::INT) STORED,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### API Endpoints
+
+#### Authentication
+
+#### User Signup
+
+POST: `/api/auth/signup`
+Request Body:
+
+```json
+{
+    "email": "user@example.com",
+    "password": "password123"
+}
+```
+
+Response:
+`201 Created on success.`
+
+#### User Login
+
+POST: `/api/auth/login`
+Request Body:
+```json
+{
+    "email": "user@example.com",
+    "password": "password123"
+}
+```
+
+Response:
+`200 OK with a JWT token.`
+
+#### OAuth Login
+
+POST: `/api/auth/oauth`
+Request Body:
+
+```json
+{
+    "provider": "Google",
+    "token": "oauth_access_token"
+}
+```
+
+Response:
+`200 OK with a JWT token.`
+
+#### Skills
+
+#### Get All Skills
+
+GET: `/api/skills`
+Response:
+
+```json
+[
+    {
+        "skill_id": 1,
+        "name": "Guitar Practice",
+        "description": "Learn fingerstyle techniques",
+        "hours_completed": 500,
+        "hours_remaining": 9500
+    }
+]
+
+```
+
+#### Add a Skill
+
+POST: `/api/skills`
+
+Request Body:
+
+```json
+{
+    "name": "Guitar Practice",
+    "description": "Learn fingerstyle techniques"
+}
+
+```
+
+Response:
+`201 Created.`
+
+#### Update a Skill
+
+PUT: `/api/skills/:skill_id`
+
+Request Body:
+```json
+{
+    "name": "Advanced Guitar",
+    "description": "Master advanced techniques"
+}
+
+```
+
+Response:
+200 OK.
+Delete a Skill
+
+DELETE: `/api/skills/:skill_id`
+Response:
+`204 No Content.`
+
+#### Sessions
+
+Get All Sessions for a Skill
+
+GET: `/api/skills/:skill_id/sessions`
+
+Response:
+
+```json
+[
+    {
+        "session_id": 1,
+        "start_time": "2024-12-01T12:00:00Z",
+        "end_time": "2024-12-01T13:00:00Z",
+        "duration": 3600
+    }
+]
+
+```
+
+#### Start a Session:
+
+POST: `/api/skills/:skill_id/sessions/start`
+
+Response:
+`201 Created with session details.`
+
+#### Stop a Session:
+
+POST: `/api/skills/:skill_id/sessions/:session_id/stop`
+
+Response:
+`200 OK with updated session details.`
+
+#### Delete a Session:
+
+DELETE: `/api/sessions/:session_id`
+
+Response:
+`204 No Content.`
+
