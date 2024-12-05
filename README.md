@@ -20,11 +20,12 @@
      Display basic progress bars and charts showing hours completed and remaining.
      Session Tracking
      Start and stop session timers manually.
-     Store session logs, including start time, end time, and duration. 4. Technical Requirements
-     Frontend
+     Store session logs, including start time, end time, and duration.
+3. Technical Requirements
+   - Frontend
      Framework: React (for web MVP), React Native (future mobile version).
      UI Components: Progress bars, charts, and forms for skill and session management.
-     Backend
+   - Backend
      Framework: Node.js with Express.js.
      Database: PostgreSQL for relational data.
      Authentication: OAuth (Google, Facebook) and email/password using libraries like Passport.js or Auth0.
@@ -32,11 +33,13 @@
      Frontend: Deployed using platforms like Vercel or Netlify.
      Backend: Hosted on AWS or Heroku.
      Database: Hosted on AWS RDS or similar cloud service.
-3. System Design
-   3.1 Database Schema
-   Database Type: PostgreSQL.
+4. System Design
+   - Database Schema
+   - Database Type: PostgreSQL.
 
-Tables and Attributes:
+---
+
+### Tables and Attributes:
 
 Users
 
@@ -69,9 +72,10 @@ Sessions:
 
 Relationships:
 
-Users → Skills: One-to-Many.
+- Users → Skills: One-to-Many.
+- Skills → Sessions: One-to-Many.
 
-Skills → Sessions: One-to-Many.
+---
 
 5. Future Features
 
