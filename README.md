@@ -87,7 +87,7 @@ Relationships:
 
    - Database schema design and setup: 1 week
    - Backend development: 2 weeks
-     Frontend MVP (Dashboard, Skill management): 3 weeks
+   - Frontend MVP (Dashboard, Skill management): 3 weeks
    - Authentication setup: 1 week
    - Testing and deployment: 1 week
    - Total: 8 weeks
