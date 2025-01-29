@@ -4,6 +4,30 @@
 
 10K Hours is a web and mobile application designed to help users track hours spent mastering specific skills, aligning with the 10,000-hour rule. The MVP focuses on the web and includes manual time tracking, a dashboard for skill progress visualization, and user authentication.
 
+```
+10k-hours/
+│── public/             # Static assets
+│── src/                # All source code lives here (modular approach)
+│   ├── app/            # Next.js App Router structure
+│   │   ├── dashboard/  # Protected user dashboard
+│   │   ├── login/      # Authentication page
+│   │   ├── api/        # API handlers (Next.js Server Actions)
+│   │   ├── layout.tsx  # Root layout
+│   │   └── page.tsx    # Landing page
+│   ├── components/     # Reusable UI components
+│   ├── hooks/          # Custom hooks (for cleaner business logic)
+│   ├── lib/            # Utilities (e.g., API calls, helper functions)
+│   ├── providers/      # Context providers (e.g., Auth, State)
+│   ├── store/          # Zustand store (modular)
+│   ├── styles/         # Global styles (Tailwind config, etc.)
+│   ├── types/          # TypeScript interfaces & types
+│   ├── utils/          # Helper functions
+│── .env                # Environment variables
+│── next.config.js      # Next.js config
+│── package.json        # Dependencies
+│── README.md           # Documentation
+
+```
 1. Objectives:
    Enable users to track up to 100 skills with detailed session logs. Provide a dashboard with progress bars and charts for tracking progress toward 10,000 hours per skill.Support two user roles:
    - Admin: Can modify user sessions.
