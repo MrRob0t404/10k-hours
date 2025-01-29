@@ -187,6 +187,7 @@ Request Body:
 }
 ```
 
+TODO: Follow with details on this DO NOT FORGET
 Response:
 `200 OK with a JWT token.`
 
