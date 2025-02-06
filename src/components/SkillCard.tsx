@@ -7,7 +7,7 @@ import {
   LinearProgress,
   Box,
 } from "@mui/material";
-// import TimeLogger from "./TimeLogger";
+import TimeLogger from "./TimeLogger";
 import { Skill } from "@/types";
 
 interface SkillCardProps {
@@ -38,7 +38,7 @@ export default function SkillCard({ skill, onTimeLog }: SkillCardProps) {
           {progress.toFixed(1)}%)
         </Typography>
 
-        {/* <TimeLogger skillId={skill.id} onTimeLog={onTimeLog} /> */}
+        <TimeLogger skillId={skill.id} onTimeLog={onTimeLog} />
       </CardContent>
     </Card>
   );
