@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Grid, Typography } from "@mui/material";
 import SkillCard from "./SkillCard";
-// import ProgressChart from "./ProgressChart";
+import ProgressChart from "./ProgressChart";
 import { Skill } from "@/types";
 
 export default function Dashboard() {
@@ -51,9 +51,9 @@ export default function Dashboard() {
         </Grid>
       ))}
 
-      {/* <Grid item xs={12}>
+      <Grid item xs={12}>
         <ProgressChart skills={skills} />
-      </Grid> */}
+      </Grid>
     </Grid>
   );
 }
