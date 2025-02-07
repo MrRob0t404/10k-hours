@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Button } from "@mui/material";
 import SkillCard from "./SkillCard";
 import ProgressChart from "./ProgressChart";
+import AddNewSkill from "./AddNewSkill";
 import { Skill } from "@/types";
 
 export default function Dashboard() {
@@ -14,7 +15,15 @@ export default function Dashboard() {
       goalHours: 10000,
       sessions: [],
     },
+    {
+      id: 2,
+      name: "back flip",
+      totalHours: 150,
+      goalHours: 10000,
+      sessions: [],
+    },
   ]);
+  const [toggleButton, setToggleButton] = useState(false);
 
   const handleTimeLog = (skillId: number, minutes: number) => {
     setSkills(
@@ -37,12 +46,22 @@ export default function Dashboard() {
     );
   };
 
+  const handleToggleButton = () => {
+    setToggleButton(!toggleButton);
+  };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <Typography variant="h4" component="h1" gutterBottom>
           Skill Tracker Dashboard
         </Typography>
+
+        {toggleButton ? (
+          <AddNewSkill />
+        ) : (
+          <Button variant="contained" onClick={handleToggleButton}>Track New Skill</Button>
+        )}
       </Grid>
 
       {skills.map((skill) => (
