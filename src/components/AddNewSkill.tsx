@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Box } from "@mui/material";
+import { TextField, Box, Button } from "@mui/material";
 import { Skill } from "@/types";
 
 interface AddNewSkillProps {
@@ -8,22 +8,10 @@ interface AddNewSkillProps {
 
 export default function AddNewSkill({ onAddSkill }: AddNewSkillProps) {
   const [skillName, setSkillName] = useState("");
-  const [goalHours, setGoalHours] = useState("");
+  // const [goalHours, setGoalHours] = useState("");
 
-  const handleAddSkill = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSetSkill = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSkillName(e.target.value);
-    if (skillName && !isNaN(Number(goalHours))) {
-      console.log("skillName", e.target.value);
-      //   onAddSkill({
-      //     id: Date.now(),
-      //     name: skillName,
-      //     totalHours: 0,
-      //     goalHours: Number(goalHours),
-      //     sessions: [],
-      //   });
-      //   setSkillName("");
-      //   setGoalHours("");
-    }
   };
 
   return (
@@ -32,10 +20,24 @@ export default function AddNewSkill({ onAddSkill }: AddNewSkillProps) {
         <TextField
           label="Skill Name"
           value={skillName}
-          onChange={handleAddSkill}
+          variant="outlined"
+          onChange={handleSetSkill}
+        />
+
+        <Button
+          variant="contained"
+          onClick={() =>
+            onAddSkill({
+              id: Date.now(),
+              name: skillName,
+              totalHours: 0,
+              goalHours: Number(10000),
+              sessions: [],
+            })
+          }
         >
-          Hello
-        </TextField>
+          Submit
+        </Button>
       </Box>
     </Box>
   );

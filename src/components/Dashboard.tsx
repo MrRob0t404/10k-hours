@@ -46,6 +46,11 @@ export default function Dashboard() {
     );
   };
 
+  const handleAddSkill = (skill: Skill) => {
+    setSkills((prevSkills) => [...prevSkills, skill]);
+    setToggleButton(false);
+  };
+
   const handleToggleButton = () => {
     setToggleButton(!toggleButton);
   };
@@ -58,9 +63,11 @@ export default function Dashboard() {
         </Typography>
 
         {toggleButton ? (
-          <AddNewSkill />
+          <AddNewSkill onAddSkill={handleAddSkill} />
         ) : (
-          <Button variant="contained" onClick={handleToggleButton}>Track New Skill</Button>
+          <Button variant="contained" onClick={handleToggleButton}>
+            Track New Skill
+          </Button>
         )}
       </Grid>
 
